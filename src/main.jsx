@@ -6,7 +6,6 @@ import {
   Mail, MapPin, Menu, MessageCircle, Moon, PenTool, Send,
   Sparkles, Sun, Target, Users, Workflow, X, Zap
 } from 'lucide-react'
-import { supabase } from './lib/supabase'
 import './styles.css'
 
 const projects = [
@@ -37,33 +36,19 @@ function App() {
   const [filter, setFilter] = useState('All')
   const [selected, setSelected] = useState(null)
   const [submitted, setSubmitted] = useState(false)
-  const [formError, setFormError] = useState('')
-  const [sending, setSending] = useState(false)
 
   useEffect(() => { document.documentElement.dataset.theme = dark ? 'dark' : 'light' }, [dark])
 
   const categories = ['All', ...new Set(projects.map((project) => project.category))]
   const visibleProjects = filter === 'All' ? projects : projects.filter((project) => project.category === filter)
   const closeMenu = () => setMenuOpen(false)
-  const handleContactSubmit = async (event) => {
+  const handleContactSubmit = (event) => {
     event.preventDefault()
-    setFormError('')
-    setSending(true)
     const form = new FormData(event.currentTarget)
-    const payload = {
-      name: form.get('name')?.toString().trim(),
-      email: form.get('email')?.toString().trim(),
-      message: form.get('message')?.toString().trim(),
-      source: 'portfolio'
-    }
-    if (!supabase) {
-      setFormError('The contact service is not configured yet. Please email me directly.')
-    } else {
-      const { error } = await supabase.from('portfolio_messages').insert(payload)
-      if (error) setFormError('I could not send that right now. Please email me directly instead.')
-      else setSubmitted(true)
-    }
-    setSending(false)
+    const subject = encodeURIComponent(`Portfolio message from ${form.get('name')}`)
+    const body = encodeURIComponent(`Name: ${form.get('name')}\nEmail: ${form.get('email')}\n\n${form.get('message')}`)
+    window.location.href = `mailto:adithya.claude@gmail.com?subject=${subject}&body=${body}`
+    setSubmitted(true)
   }
 
   return <div className="site-shell">
@@ -110,7 +95,7 @@ function App() {
 
       <section className="skills-section" id="skills"><div className="section-wrap skills-inner"><div><p className="section-kicker">What I work with</p><h2>Skills</h2><p className="skills-note">Tools change. The ability to learn, simplify, and finish matters more.</p></div><div className="skill-list">{skills.map(([skill, Icon]) => <div className="skill-chip" key={skill}><Icon size={17} />{skill}</div>)}</div></div></section>
 
-      <section className="contact-section section-wrap" id="contact"><div className="contact-copy"><p className="section-kicker">Contact</p><h2>Have a problem<br /><span>worth building?</span></h2><p>Tell me what you’re working on, what feels stuck, or what you want to make real. I’m open to collaborations, product conversations, and ambitious student-led work.</p><div className="contact-details"><a href="mailto:adithya.claude@gmail.com"><Mail size={18} /> adithya.claude@gmail.com</a><span><MapPin size={18} /> Chennai, India</span></div></div><form className="contact-form" onSubmit={handleContactSubmit}>{submitted ? <div className="success-state"><Check size={26} /><h3>Message received.</h3><p>Thanks for reaching out. I’ll get back to you soon.</p><a className="primary-button" href="mailto:adithya.claude@gmail.com">Open email <ArrowUpRight size={16} /></a></div> : <><label>Name<input name="name" placeholder="Your name" required /></label><label>Email<input type="email" name="email" placeholder="you@example.com" required /></label><label>What are you building?<textarea name="message" rows="4" placeholder="A short note about your idea or problem..." required /></label>{formError && <p className="form-error" role="alert">{formError}</p>}<button className="primary-button" type="submit" disabled={sending}>{sending ? 'Sending…' : 'Send a message'} {!sending && <Send size={16} />}</button></>}</form></section>
+      <section className="contact-section section-wrap" id="contact"><div className="contact-copy"><p className="section-kicker">Contact</p><h2>Have a problem<br /><span>worth building?</span></h2><p>Tell me what you’re working on, what feels stuck, or what you want to make real. I’m open to collaborations, product conversations, and ambitious student-led work.</p><div className="contact-details"><a href="mailto:adithya.claude@gmail.com"><Mail size={18} /> adithya.claude@gmail.com</a><span><MapPin size={18} /> Chennai, India</span></div></div><form className="contact-form" onSubmit={handleContactSubmit}>{submitted ? <div className="success-state"><Check size={26} /><h3>Email draft opened.</h3><p>Your default email app should now contain the message.</p><a className="primary-button" href="mailto:adithya.claude@gmail.com">Open email <ArrowUpRight size={16} /></a></div> : <><label>Name<input name="name" placeholder="Your name" required /></label><label>Email<input type="email" name="email" placeholder="you@example.com" required /></label><label>What are you building?<textarea name="message" rows="4" placeholder="A short note about your idea or problem..." required /></label><button className="primary-button" type="submit">Open email draft <Send size={16} /></button></>}</form></section>
     </main>
 
     <footer className="footer"><div className="section-wrap footer-inner"><div className="footer-intro"><div className="footer-avatar">AS</div><div><strong>Let’s build something impactful.</strong><p>Good products start with a clear problem.</p></div></div><div className="footer-links"><a href="mailto:adithya.claude@gmail.com"><Mail size={19} /> Email</a><a href="https://www.linkedin.com" target="_blank" rel="noreferrer"><BriefcaseBusiness size={19} /> LinkedIn</a><a href="https://github.com/adithya-hmt" target="_blank" rel="noreferrer"><GitBranch size={19} /> GitHub</a></div></div><div className="footer-bottom"><span>© 2026 Adithya S. Built with intention.</span><a href="#home" aria-label="Back to top"><ArrowUpRight size={18} /></a></div></footer>
