@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { createRoot } from 'react-dom/client'
 import {
   ArrowDown, ArrowRight, ArrowUpRight, BriefcaseBusiness,
   Code2, GitBranch, GraduationCap,
@@ -134,3 +135,5 @@ function ProjectModal({ project, onClose }) {
 }
 
 export default App
+
+createRoot(document.getElementById('root')).render(<App />)
