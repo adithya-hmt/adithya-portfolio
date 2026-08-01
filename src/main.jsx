@@ -47,6 +47,8 @@ const SITE = {
   location: 'Chennai, India',
 }
 
+const BASE_PATH = import.meta.env.BASE_URL.replace(/\/$/, '')
+
 const NAV_ITEMS = [
   ['Home', '/'],
   ['About', '/about'],
@@ -221,11 +223,23 @@ function normalisePath(pathname) {
   return pathname.replace(/\/+$/, '') || '/'
 }
 
+function toAppPath(pathname) {
+  const withoutBase = BASE_PATH && pathname.startsWith(BASE_PATH)
+    ? pathname.slice(BASE_PATH.length) || '/'
+    : pathname
+  return normalisePath(withoutBase)
+}
+
+function toBrowserPath(pathname) {
+  const appPath = normalisePath(pathname)
+  return `${BASE_PATH}${appPath === '/' ? '/' : appPath}` || '/'
+}
+
 function usePath() {
-  const [path, setPath] = useState(() => normalisePath(window.location.pathname))
+  const [path, setPath] = useState(() => toAppPath(window.location.pathname))
 
   useEffect(() => {
-    const onPopState = () => setPath(normalisePath(window.location.pathname))
+    const onPopState = () => setPath(toAppPath(window.location.pathname))
     window.addEventListener('popstate', onPopState)
     return () => window.removeEventListener('popstate', onPopState)
   }, [])
@@ -235,8 +249,8 @@ function usePath() {
 
 function navigate(href) {
   const next = normalisePath(href)
-  if (normalisePath(window.location.pathname) !== next) {
-    window.history.pushState({}, '', next)
+  if (toAppPath(window.location.pathname) !== next) {
+    window.history.pushState({}, '', toBrowserPath(next))
     window.dispatchEvent(new PopStateEvent('popstate'))
   }
   window.scrollTo({ top: 0, behavior: 'instant' })
@@ -251,7 +265,8 @@ function Link({ href, children, className = '', onClick, ...props }) {
     navigate(href)
   }
 
-  return <a href={href} className={className} onClick={handleClick} {...props}>{children}</a>
+  const browserHref = href.startsWith('/') ? toBrowserPath(href) : href
+  return <a href={browserHref} className={className} onClick={handleClick} {...props}>{children}</a>
 }
 
 function useTheme() {
