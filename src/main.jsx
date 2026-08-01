@@ -15,7 +15,7 @@ import {
   ExternalLink,
   FileText,
   FlaskConical,
-  Github,
+  GitBranch,
   Globe2,
   GraduationCap,
   Layers3,
@@ -394,7 +394,7 @@ function Footer() {
           <p>Building useful technology for real-world problems.</p>
         </div>
         <div className="footer-links">
-          <a href={SITE.github} target="_blank" rel="noreferrer"><Github size={17} /> GitHub</a>
+          <a href={SITE.github} target="_blank" rel="noreferrer"><GitBranch size={17} /> GitHub</a>
           <a href={`mailto:${SITE.email}`}><Mail size={17} /> Email</a>
           <span className="placeholder-link">LinkedIn · add URL</span>
           <span className="placeholder-link">Medium · add URL</span>
@@ -447,7 +447,7 @@ function HomePage() {
             <Link className="button secondary" href="/about">Read about me <ChevronRight size={18} /></Link>
           </div>
           <div className="social-row" aria-label="Profile links">
-            <a href={SITE.github} target="_blank" rel="noreferrer"><Github size={17} /> GitHub</a>
+            <a href={SITE.github} target="_blank" rel="noreferrer"><GitBranch size={17} /> GitHub</a>
             <a href={`mailto:${SITE.email}`}><Mail size={17} /> Email</a>
             <span>LinkedIn · add URL</span>
             <span>Medium · add URL</span>
@@ -808,7 +808,7 @@ function ContactPage() {
           <p>A short note about who the user is, what is currently difficult, and what outcome matters is more useful than a long feature list.</p>
           <div className="contact-links">
             <a href={`mailto:${SITE.email}`}><Mail size={19} /><div><span>Email</span><strong>{SITE.email}</strong></div></a>
-            <a href={SITE.github} target="_blank" rel="noreferrer"><Github size={19} /><div><span>GitHub</span><strong>github.com/adithya-hmt</strong></div></a>
+            <a href={SITE.github} target="_blank" rel="noreferrer"><GitBranch size={19} /><div><span>GitHub</span><strong>github.com/adithya-hmt</strong></div></a>
             <div className="contact-placeholder"><ExternalLink size={19} /><div><span>LinkedIn</span><strong>Add profile URL</strong></div></div>
             <div className="contact-placeholder"><BookOpen size={19} /><div><span>Medium</span><strong>Add publication URL</strong></div></div>
             <div className="contact-placeholder"><MapPin size={19} /><div><span>Location</span><strong>{SITE.location}</strong></div></div>
