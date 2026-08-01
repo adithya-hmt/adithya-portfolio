@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M48 0H0V48" fill="none" stroke="#293244" stroke-width="1" opacity=".55"/>
+    </pattern>
+    <radialGradient id="glow" cx="78%" cy="25%" r="68%">
+      <stop offset="0" stop-color="#2867ff" stop-opacity=".42"/>
+      <stop offset="1" stop-color="#2867ff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="#090c12"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <rect x="72" y="64" width="54" height="54" rx="13" fill="#2867ff"/>
+  <text x="99" y="102" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="34" font-weight="700">A</text>
+  <text x="145" y="99" fill="#eaf0fa" font-family="Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="5">ADITHYA / 01</text>
+  <text x="72" y="260" fill="#f5f7fb" font-family="Arial, sans-serif" font-size="78" font-weight="700">Building useful technology</text>
+  <text x="72" y="350" fill="#72a0ff" font-family="Arial, sans-serif" font-size="78" font-weight="700">for real-world problems.</text>
+  <text x="76" y="430" fill="#a6b1c1" font-family="Arial, sans-serif" font-size="29">CSE Student · AI Developer · Product Builder</text>
+  <line x1="76" y1="495" x2="1124" y2="495" stroke="#3b465a"/>
+  <text x="76" y="548" fill="#778397" font-family="monospace" font-size="20">CHENNAI, INDIA</text>
+  <text x="1124" y="548" text-anchor="end" fill="#778397" font-family="monospace" font-size="20">ADHITHYA.COM</text>
+</svg>
